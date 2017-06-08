@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from controller.views import CommandExecutor, HomeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^home/', HomeView.as_view()),
+    url(r'^command/(?P<slug>[reset1234]+)/$', CommandExecutor.as_view()),
 ]
