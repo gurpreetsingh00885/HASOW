@@ -119,4 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '~/djangostatic'
+LOGIN_URL = "/login/?next=/control/"
+LOGIN_REDIRECT_URL = "/control"
+LOGOUT_REDIRECT_URL = "/logout_successful"

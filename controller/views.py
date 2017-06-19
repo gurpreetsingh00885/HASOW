@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 import serial, pickle, os, time
 import serial.tools.list_ports
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 SNo = '756333130333512092F1'	#Arduino Serial Number
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Relay states when starting server ...
@@ -16,6 +18,7 @@ name_file = open(os.path.join(DIR, 'controller/names.dat'), "wb")
 names = {'name1':'Appliance 1', 'name2':'Appliance 2', 'name3':'Appliance 3', 'name4':'Appliance 4',}
 pickle.dump(names, name_file)
 name_file.close()
+
 def read_names():
 	name_file = open(os.path.join(DIR, 'controller/names.dat'), "rb")
 	names = pickle.load(name_file)
@@ -32,7 +35,7 @@ def find_arduino(SN):
 serial_port = find_arduino(SNo)
 
 
-class CommandExecutor(View):
+class CommandExecutor(LoginRequiredMixin, View):
 	def get(self, request, slug,  *args, **kwargs):	# 'slug' is the command recieved
 		serial_port.write(str(slug))
 		if slug in '1 2 3 4 5'.split():
@@ -40,7 +43,7 @@ class CommandExecutor(View):
 		names = read_names()
 		return HttpResponseRedirect(base_ip+"/control/")
 
-class Renamer(View):
+class Renamer(LoginRequiredMixin, View):
 	def get(self, request, slug,  *args, **kwargs):	# 'slug' is the command recieved
 		'''slug is of the form    name1-XXXXXXXXXX'''
 		name_file = open(os.path.join(DIR, 'controller/names.dat'), "rb")
@@ -57,7 +60,7 @@ class Renamer(View):
 		serial_port.write(('%s%s' %({'name1':'rena', 'name2':'renb', 'name3':'renc', 'name4':'rend', }[x[0]],x[1])).encode('latin-1'))
 		return HttpResponseRedirect('/control')
 
-class Controller(View):
+class Controller(LoginRequiredMixin, View):
 	def get(self, request, *args, **kwargs):	# 'slug' is the command recieved
 		names = read_names()
 		context={'url1' : base_ip+"/command/1", 'url2' : base_ip+"/command/2", 'url3' : base_ip+"/command/3", 'url4' : base_ip+"/command/4", 'url5' : base_ip+"/command/5" , 'name1' : names['name1'], 'name2' : names['name2'], 'name3' : names['name3'], 'name4' : names['name4'],'btn1state':'checked' if state['relay1'] else '', 'btn2state':'checked' if state['relay2'] else '', 'btn3state':'checked' if state['relay3'] else '', 'btn4state':'checked' if state['relay4'] else '', 'btn5state':'checked' if state['relay5'] else ''}
