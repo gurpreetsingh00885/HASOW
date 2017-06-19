@@ -1,18 +1,18 @@
 (dp0
-S'name4'
+Vname4
 p1
-S'Appliance 4'
+VAppliance 4
 p2
-sS'name2'
+sVname2
 p3
-S'Appliance 2 '
+VFAN 2
 p4
-sS'name3'
+sVname3
 p5
-S'Appliance 3'
+VAppliance 3
 p6
-sS'name1'
+sVname1
 p7
-S'Appliance 1'
+VFAN
 p8
 s.
