@@ -18,15 +18,16 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 
-from controller.views import CommandExecutor, HomeView, Controller
+from controller.views import CommandExecutor, HomeView, Controller, Renamer
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/', auth_views.logout, name='logout'),
-    url(r'^home/', HomeView.as_view()),
+    url(r'^home/', Controller.as_view()),
     url(r'^control/', Controller.as_view()),
-    url(r'^command/(?P<slug>[123456789]+)/$', CommandExecutor.as_view()),
+    url(ur'^command/(?P<slug>.*)/$', CommandExecutor.as_view()),
+    url(r'^rename/(?P<slug>.*)/$', Renamer.as_view()),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
