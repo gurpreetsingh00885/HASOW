@@ -1,0 +1,232 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=400, initial-scale=0.9">
+        <title>
+            Rename appliance...
+        </title>
+        <!--link of css file-->
+        <style type="text/css">
+		body{
+    background: #f8f8f8;
+    font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #79aec8;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+a.button {
+    padding: 4px 5px;
+}
+
+.button:active, input[type=submit]:active, input[type=button]:active,
+.button:focus, input[type=submit]:focus, input[type=button]:focus,
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #609ab6;
+}
+
+.button[disabled], input[type=submit][disabled], input[type=button][disabled] {
+    opacity: 0.4;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    float: right;
+    border: none;
+    font-weight: 400;
+    background: #417690;
+}
+
+.button.default:active, input[type=submit].default:active,
+.button.default:focus, input[type=submit].default:focus,
+.button.default:hover, input[type=submit].default:hover {
+    background: #205067;
+}
+
+.button[disabled].default,
+input[type=submit][disabled].default,
+input[type=button][disabled].default {
+    opacity: 0.4;
+}
+  
+.outer{
+    box-shadow: 0px 2px 5px #888888;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 326px;
+    height: 150px;
+    background: white;
+    padding: 20px;
+}
+#wrapper{
+     margin-left:auto;
+    margin-right:auto;
+    width:100%;    
+}
+#sidebar{
+    position: absolute;
+    right: 350px;
+    top:  200px;
+    width: 250px;
+    border: 1px solid black;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 30px;
+}
+a.rename{
+    text-decoration: none;
+    font-size: 10px;
+}
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(28px);
+  -ms-transform: translateX(28px);
+  transform: translateX(28px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 100px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+#branding h1 {
+    padding: 0;
+    margin: 0 20px 0 0;
+    font-weight: 300;
+    font-size: 20px;
+    color: white;
+}
+#branding {
+    float: center;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    text-align: center;
+    color: white;
+}
+
+#branding h2 {
+    padding: 0 10px;
+    font-size: 14px;
+    margin: -8px 0 8px 0;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+#header {
+    width: 350px;
+    height: 40px;
+    box-shadow: 0px 2px 5px #888888;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 8px;
+    background: #417690;
+    line-height: 40px;
+    color: #ffc;
+    overflow: hidden;
+    text-align: center;
+}
+
+#branding a:hover {
+    text-decoration: none;
+}
+
+		</style>
+    </head>
+    <body>
+            <div align="center">
+               <br><br><br><br><br><br><br>
+               
+
+                <div id="header">
+        <center><div id="branding">
+        
+<h1><center>Rename {{appliance}}</center></h1 >
+
+        </div></center></div>
+        <div class="outer">
+          
+              
+              <form action="" method="POST">
+                {% csrf_token %}
+                <br/>
+                Enter new name for {{appliance}}:<br/><br/>
+                {{form.new_name}}
+                <br/><br/>
+                <div align="right"><input type="submit" value="Rename"/></div>
+              </form>
+
+                <!--All button-->
+               <!--<br><br><acronym title="Click here to operate all four appliances at same time."><button type="submit"><font size=4>A  L  L</font></button></acronym>
+               <br><br><acronym title="Click here to reset the system."><button type="reset"><font size=4>R E S E T</font></button></acronym>
+               </b>
+               </font>-->
+               <!--Division made for sidebar-->
+            </div>
+               <!--<aside id="sidebar">
+                <p>
+                    <u>Important-</u><br>
+                    <b>Home automation system </b>allows you to operate upto <b>four</b> devices at
+                    a time with these buttons even if you are away from appliances.You are required to click on
+                    the corresponding button to operate particular appliance.<br><a href="www.google.com">Click here for Help</a>
+                </p>
+               </aside>-->
+            </div>
+            <br/><br/>
+            <!--marquee><font size=4><b>Welcome to Home Automation System (over WLAN)</b></font></marquee-->
+          <!--footer information-->  
+        <br><br><br><br><br>
+        <footer>
+            <p align="left"><a href="http://192.168.12.1/logout">Logout</a></p>
+        <p align="right">Developed by Gurpreet Singh, Haripal Baluja, Harmanjeet Singh, Mani Kumar (GHHM!)<br>
+        Contact us: <mark>mk0872191152@gmail.com</mark><br><font size=1>&copy; All Rights Reserved.</font></p>
+        </footer>
+    </body><!--End-->
+        
+</html>

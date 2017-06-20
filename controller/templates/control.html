@@ -7,14 +7,16 @@
         <!--link of css file-->
         <style type="text/css">
 		body{
-    background: linear-gradient(#417290,white,#417290);
+    background: #f8f8f8;
+    font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
 }
     
 .outer{
-    border: double black;
-    
+    box-shadow: 0px 2px 5px #888888;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     width: 350px;
-    background: radial-gradient(white, gray);
+    background: white;
     padding: 8px;
 }
 #wrapper{
@@ -29,49 +31,107 @@
     width: 250px;
     border: 1px solid black;
 }
-.switch{
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 24px;
-    border: 0.5px solid black;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 30px;
 }
-.switch input{
-    display: none;
+a.rename{
+    text-decoration: none;
+    font-size: 10px;
 }
-.slider{
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
-.slider:before{
-    position: absolute;
-    content: " ";
-    height:16px;
-    width: 26px;
-    left:4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border: 0.5px solid black;
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
-input:checked+.slider{
-    background-color: #2196F3;
+
+input:checked + .slider {
+  background-color: #2196F3;
 }
-input:focus+.slider{
-    box-shadow: 1px 1px 1px #2196F3;
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
 }
-input:checked+.slider:before{
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(28px);
+  -ms-transform: translateX(28px);
+  transform: translateX(28px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 100px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+#branding h1 {
+    padding: 0;
+    margin: 0 20px 0 0;
+    font-weight: 300;
+    font-size: 20px;
+    color: white;
+}
+#branding {
+    float: center;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    text-align: center;
+    color: white;
+}
+
+#branding h2 {
+    padding: 0 10px;
+    font-size: 14px;
+    margin: -8px 0 8px 0;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+#header {
+    width: 350px;
+    height: 40px;
+    box-shadow: 0px 2px 5px #888888;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 8px;
+    background: #417690;
+    line-height: 40px;
+    color: #ffc;
+    overflow: hidden;
+    text-align: center;
+}
+
+#branding a:hover {
+    text-decoration: none;
 }
 
 		</style>
@@ -79,49 +139,87 @@ input:checked+.slider:before{
     <body>
             <div align="center">
                <br><br><br><br><br><br><br>
-               <div class="outer">
-                
-               <font size=5><u>Home</u> <u>Automation</u> <u>System</u><br>
+               
+
+                <div id="header">
+        <center><div id="branding">
+        
+<h1><center>HASoW Control Panel</center></h1 >
+
+        </div></center></div>
+        <div class="outer">
+
+
+            <table width="80%" cellspacing=10>
+            
+
                <!--Heading-->
                <!--Appliance 1-->
-                <b> {{name1}}  <label class="switch">
+            
+                <tr>
+                
+                <td> {{name1}}</td>
+
+
+                <td> <a class="rename" href="http://192.168.12.1/re/1">edit</a> </td>
+
+                <td align="right"> 
+                <label class="switch">
 <form action={{url1}} method="GET">
                 <input type="checkbox" {{btn1state}} onClick="this.form.submit()">
-                <div class="slider">   
+                <div class="slider round">   
                 </div> 
 </form>
-            </label>
+            </label></td>
+        </tr>
+
+        <tr>
+
+
                 <!--Appliance 2-->
-               <br><br>{{name2}}   <label class="switch">
+               <td>{{name2}}</td>
+                <td> <a class="rename" href="http://192.168.12.1/re/2">edit</a> </td>
+               <td align="right"><label class="switch">
 <form action={{url2}} method="GET">
                 <input type="checkbox" {{btn2state}} onClick="this.form.submit()">
-                <div class="slider">   
+                <div class="slider round">   
                 </div> 
 </form>
-            </label>
+            </label></td></tr>
+
+            <tr>
                 <!--Appliance 3-->
-                <br><br>{{name3}}   <label class="switch">
+                <td>{{name3}}</td>
+                <td> <a class="rename" href="http://192.168.12.1/re/3">edit</a> </td>
+                <td align="right">   <label class="switch">
 <form action={{url3}} method="GET">
                 <input type="checkbox" {{btn3state}} onClick="this.form.submit()">
-                <div class="slider">   
+                <div class="slider round">   
                 </div> 
 </form>
-            </label>
+            </label></td>
+
+            <tr>
                 <!--Appliance 4-->
-                <br><br>{{name4}}   <label class="switch">
+                <td>{{name4}}</td>
+                <td> <a class="rename" href="http://192.168.12.1/re/4">edit</a> </td>
+                <td align="right">   <label class="switch">
 <form action={{url4}} method="GET">
                 <input type="checkbox" {{btn4state}} onClick="this.form.submit()">
-                <div class="slider">   
+                <div class="slider round">   
                 </div> 
 </form>
-            </label>
-                <br><br>LCD Backlight   <label class="switch">
+            </label></td>
+
+            <tr>
+                <td colspan=2>LCD Backlight</td>
+                <td align="right"><label class="switch">
 <form action={{url5}} method="GET">
                 <input type="checkbox" {{btn5state}} onClick="this.form.submit()">
-                <div class="slider">   
+                <div class="slider round">   
                 </div> 
 </form>
-            </label>
+            </label></td></tr></table>
                 <!--All button-->
                <!--<br><br><acronym title="Click here to operate all four appliances at same time."><button type="submit"><font size=4>A  L  L</font></button></acronym>
                <br><br><acronym title="Click here to reset the system."><button type="reset"><font size=4>R E S E T</font></button></acronym>
@@ -138,10 +236,12 @@ input:checked+.slider:before{
                 </p>
                </aside>-->
             </div>
-            <marquee><font size=4><b>Welcome to Homeautomation System!</b></font></marquee>
+            <br/><br/>
+            <!--marquee><font size=4><b>Welcome to Home Automation System (over WLAN)</b></font></marquee-->
           <!--footer information-->  
         <br><br><br><br><br>
         <footer>
+            <p align="left"><a href="http://192.168.12.1/logout">Logout</a></p>
         <p align="right">Developed by Gurpreet Singh, Haripal Baluja, Harmanjeet Singh, Mani Kumar (GHHM!)<br>
         Contact us: <mark>mk0872191152@gmail.com</mark><br><font size=1>&copy; All Rights Reserved.</font></p>
         </footer>

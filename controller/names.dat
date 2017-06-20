@@ -5,7 +5,7 @@ VAppliance 4
 p2
 sVname2
 p3
-VAppliance 2
+VFAN 2
 p4
 sVname3
 p5
@@ -13,6 +13,6 @@ VAppliance 3
 p6
 sVname1
 p7
-VAppliance 1
+VFAN
 p8
 s.

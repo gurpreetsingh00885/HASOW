@@ -7,12 +7,14 @@ from django.views import View
 import serial, pickle, os, time
 import serial.tools.list_ports
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import RenameForm
+
 
 SNo = '756333130333512092F1'	#Arduino Serial Number
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Relay states when starting server ...
 state = {'relay1' : False, 'relay2' : False, 'relay3' : False, 'relay4': False, 'relay5': True}
-base_ip = 'http://192.168.12.1:8000'
+base_ip = 'http://192.168.12.1'
 
 name_file = open(os.path.join(DIR, 'controller/names.dat'), "wb")
 names = {'name1':'Appliance 1', 'name2':'Appliance 2', 'name3':'Appliance 3', 'name4':'Appliance 4',}
@@ -59,6 +61,22 @@ class Renamer(LoginRequiredMixin, View):
 		name_file.close()
 		serial_port.write(('%s%s' %({'name1':'rena', 'name2':'renb', 'name3':'renc', 'name4':'rend', }[x[0]],x[1])).encode('latin-1'))
 		return HttpResponseRedirect('/control')
+
+
+class Renamer_selector(LoginRequiredMixin, View):
+	def get(self, request, slug,  *args, **kwargs):	# 'slug' is the command recieved
+		name_file = open(os.path.join(DIR, 'controller/names.dat'), "rb")
+		names = pickle.load(name_file)
+		name_file.close()
+		form = RenameForm(('name%d' %(int(slug))))
+		#form.save(('name%d' %(int(slug))))
+		context={'appliance':names['name%d' %(int(slug))], 'form':form,}
+		return render(request, "rename.html", context)
+
+	def post(self, request, *args, **kwargs):
+		print request.POST, 
+		return HttpResponseRedirect("/rename/name%d-%s"%(int(kwargs['slug']), request.POST['new_name']))
+
 
 class Controller(LoginRequiredMixin, View):
 	def get(self, request, *args, **kwargs):	# 'slug' is the command recieved
